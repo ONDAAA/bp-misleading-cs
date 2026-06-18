@@ -109,6 +109,15 @@ Pozorování:
 - `short prompt` naopak lépe fungoval pro `base + QLoRA` i pro GPT-5.5.
 - Výsledky tedy nejsou jen o modelu, ale i o interakci mezi typem modelu a typem promptu.
 
+## Known Limitations
+
+- Dataset je relativně malý, takže výsledky je potřeba číst jako experimentální a ne jako definitivní benchmark pro celý český mediální prostor.
+- Testovací sada má 80 záznamů, takže i malé změny v několika případech mohou viditelně pohnout metrikami.
+- Anotace zavádějícnosti je do určité míry interpretační úloha, i přes vysokou inter-annotator agreement.
+- Výsledky jsou citlivé na formulaci promptu; rozdíl mezi `short` a `long` variantou je v tomto repozitáři přímo vidět.
+- Výkon na této sadě negarantuje stejný výkon na jiných médiích, jiných časových obdobích nebo jiných typech titulků.
+- Finální adaptery jsou zveřejněné, ale checkpointy a kompletní trénovací artefakty v repozitáři nejsou.
+
 ## Dataset a metodika
 
 ### Sběr dat
