@@ -15,6 +15,61 @@ Repozitář obsahuje:
 - evaluační skripty a finální výstupy
 - konfigurační soubory použitých LoRA adapterů
 
+## Quick Start
+
+Nejjednodušší lineární postup pro někoho, kdo si chce repozitář jen stáhnout, projít a použít:
+
+1. Forkni repozitář na GitHubu nebo si ho rovnou naklonuj.
+2. Pokud chceš i finální adaptery, nainstaluj `git lfs`.
+3. Naklonuj repozitář a stáhni LFS soubory.
+4. Vytvoř virtuální prostředí a nainstaluj závislosti.
+5. Otevři `README`, `docs/workflow.md` a `outputs/eval_outputs/short/eval_report.md`.
+6. Prohlédni si datasetové soubory a hotové výstupy.
+7. Pokud chceš reprodukovat pipeline, pokračuj přes split, inference nebo fine-tuning.
+
+```bash
+git clone https://github.com/ONDAAA/bp-misleading-cs.git
+cd bp-misleading-cs
+
+git lfs install
+git lfs pull
+
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+Co otevřít jako první:
+- výsledky hlavní varianty: [`outputs/eval_outputs/short/eval_report.md`](outputs/eval_outputs/short/eval_report.md)
+- detail workflow: [`docs/workflow.md`](docs/workflow.md)
+- finální dataset: [`data/used_sources_urls/final_dataset.csv`](data/used_sources_urls/final_dataset.csv)
+- finální adaptery:
+  - [`models/llama_base_qlora_v1/adapter_model.safetensors`](models/llama_base_qlora_v1/adapter_model.safetensors)
+  - [`models/llama_instruct_qlora_v1/adapter_model.safetensors`](models/llama_instruct_qlora_v1/adapter_model.safetensors)
+
+## Fork Workflow
+
+Pokud si chce někdo projekt forknout a dál ho rozšiřovat, nejpraktičtější postup je:
+
+1. Forknout repozitář přes GitHub UI.
+2. Naklonovat vlastní fork.
+3. Zapnout `git lfs`, aby se stáhly adaptery.
+4. Vytvořit si vlastní branch pro experiment.
+5. Podle potřeby upravovat:
+   - datasety v `data/`
+   - prompty v `prompts/`
+   - fine-tuning notebooky v `notebooks/finetune/`
+   - inference notebooky v `notebooks/inference/`
+   - evaluaci v `outputs/04_evaluation.py`
+
+```bash
+git clone https://github.com/<your-username>/bp-misleading-cs.git
+cd bp-misleading-cs
+git lfs install
+git lfs pull
+git checkout -b experiment/my-change
+```
+
 ## Hlavní výsledky
 
 V této README jsou jako hlavní prezentovány výsledky varianty `short prompt`, protože to byla hlavní experimentální varianta použitá v bakalářské práci. Varianta `long prompt` je uvedena níže jako doplňkové srovnání.
