@@ -4,6 +4,10 @@ Bakalářská práce, FAI UTB ve Zlíně, 2026.
 
 Projekt se zabývá automatickou detekcí zavádějícnosti v českých zpravodajských titulcích pomocí lokálních jazykových modelů, fine-tuningu metodou QLoRA a srovnání s komerčním baseline modelem GPT-5.5.
 
+## English TL;DR
+
+This repository contains a bachelor's thesis project focused on detecting misleading Czech news headlines with local language models. It includes the annotated dataset pipeline, prompt variants, fine-tuning notebooks, evaluation scripts, final reports, and two final QLoRA adapters published via Git LFS. The main thesis results are based on the `short prompt` setting, where `LLaMA 3.1 8B base + QLoRA` reached `0.800` F1 macro on the main misleadingness label, while `GPT-5.5` reached `0.864`.
+
 ## O projektu
 
 Hlavní výzkumná otázka byla, zda lze na malé vlastní anotované sadě doladit lokální model tak, aby se přiblížil výkonu silného komerčního modelu při hodnocení zavádějících titulků.
@@ -14,6 +18,17 @@ Repozitář obsahuje:
 - notebooky pro fine-tuning a inferenci
 - evaluační skripty a finální výstupy
 - konfigurační soubory použitých LoRA adapterů
+
+## Use Cases
+
+Z tohohle repozitáře si může někdo vzít hlavně:
+
+- ukázku malé výzkumné pipeline od scrapingu přes anotaci až po evaluaci
+- příklad vlastního label schema pro hodnocení zavádějících titulků
+- srovnání vlivu `short` a `long` promptu na klasifikační výkon
+- ukázku QLoRA fine-tuningu malého specializovaného datasetu
+- hotové finální adaptery, které lze použít jako základ pro další experimenty
+- evaluační výstupy a grafy jako referenci pro podobný výzkumný projekt
 
 ## Quick Start
 
