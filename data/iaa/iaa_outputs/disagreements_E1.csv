@@ -1,0 +1,5 @@
+id,header,E1-misleading_header_model_final_gold,E1-misleading_header_model_final_gemini
+cnnprima_34868a07,Schmarcz: Na Ukrajině pomáháme sami sobě. Nejen Slovensko by se mohlo ocitnout v ohrožení,POTENTIALLY_MISLEADING,NOT_MISLEADING
+ct24_20c6948e,Čínu zaplavili „krysí lidé“. Část mladých práci předstírá,POTENTIALLY_MISLEADING,MISLEADING
+blesk_90dc4b64,"Pochlebování, nebo tutlání skandálu? Melania Trumpová má dostat Kennedyho operu",POTENTIALLY_MISLEADING,MISLEADING
+protiproud_dd67a9a7,Zmatek dosahuje vrcholu: Blekota jako za covidu,POTENTIALLY_MISLEADING,MISLEADING

@@ -1,0 +1,15 @@
+.DS_Store
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# Local secrets or machine-specific files
+.env
+.env.*
+
+# Large training artifacts that exceed GitHub's file-size limits
+models/**/*.safetensors
+models/**/checkpoint-*/
+

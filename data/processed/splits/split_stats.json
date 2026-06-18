@@ -1,0 +1,72 @@
+{
+  "input_file": "gold_standard_label_studio_400.json",
+  "seed": 42,
+  "ratios": {
+    "train": 0.7,
+    "val": 0.1,
+    "test": 0.2
+  },
+  "preprocessing": {
+    "raw_count": 400,
+    "after_validation": 400,
+    "after_deduplication": 400,
+    "after_cs_filter": 398
+  },
+  "splits": {
+    "train": {
+      "total": 278,
+      "by_E1": {
+        "MISLEADING": 53,
+        "NOT_MISLEADING": 119,
+        "POTENTIALLY_MISLEADING": 106
+      },
+      "by_M2": {
+        "CRIME": 26,
+        "CULTURE": 11,
+        "ECONOMY": 33,
+        "HEALTH": 14,
+        "OTHER": 3,
+        "POLITICS": 127,
+        "SOCIETY": 46,
+        "SPORT": 5,
+        "TECH": 13
+      }
+    },
+    "val": {
+      "total": 40,
+      "by_E1": {
+        "MISLEADING": 8,
+        "NOT_MISLEADING": 17,
+        "POTENTIALLY_MISLEADING": 15
+      },
+      "by_M2": {
+        "CRIME": 3,
+        "CULTURE": 4,
+        "ECONOMY": 2,
+        "HEALTH": 2,
+        "OTHER": 1,
+        "POLITICS": 20,
+        "SOCIETY": 8
+      }
+    },
+    "test": {
+      "total": 80,
+      "by_E1": {
+        "MISLEADING": 16,
+        "NOT_MISLEADING": 34,
+        "POTENTIALLY_MISLEADING": 30
+      },
+      "by_M2": {
+        "CRIME": 7,
+        "CULTURE": 3,
+        "ECONOMY": 10,
+        "HEALTH": 6,
+        "OTHER": 1,
+        "POLITICS": 38,
+        "SOCIETY": 12,
+        "SPORT": 2,
+        "TECH": 1
+      }
+    }
+  }
+}

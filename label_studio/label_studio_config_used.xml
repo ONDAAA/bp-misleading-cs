@@ -1,0 +1,316 @@
+<!--
+  Label Studio anotační konfigurace v3-final
+
+  Bakalářská práce: Trénování a kvalitativní analýza lokálních jazykových modelů
+                    s využitím vlastní datové sady
+
+  ZJEDNODUŠENÁ VERZE — jen Sekce I + minimum metadat (M1, M2, M3)
+  Sekce II (F1-G1) z verze v3.1 byla vyřazena (mimo scope BP).
+
+  Workflow:
+    Krok 1: Anotátor vidí header a vyplňuje Sekci I (A1-E1)
+    Krok 2: Po vyplnění E1 se odhalí Metadata (M1, M2, M3)
+
+  Skryté CSV sloupce (uloží se do exportu, ale anotátor je nevidí):
+    - id (vlastní ID záznamu)
+    - source (název zdroje)
+    - pre-label (předlabel)
+    - url (URL článku, pro pozdější kvalitativní analýzu)
+    - published (datum, pro pozdější kvalitativní analýzu)
+-->
+
+<View>
+  <!-- ========================================================== -->
+  <!-- STYLY                                                      -->
+  <!-- ========================================================== -->
+  <Style>
+    .step-header {
+      background: #2563eb;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 14px;
+      margin: 16px 0 8px 0;
+    }
+    .step-meta {
+      background: #7c3aed;
+    }
+    .field-label {
+      font-weight: 600;
+      margin-top: 12px;
+      color: #1e293b;
+    }
+    .field-help {
+      font-size: 12px;
+      color: #64748b;
+      font-style: italic;
+      margin-bottom: 4px;
+    }
+    .header-display {
+      background: #f1f5f9;
+      border: 2px solid #2563eb;
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin: 0 0 20px 0;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.5;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+    }
+    .header-display::before {
+      content: "TITULEK:";
+      display: block;
+      font-size: 10px;
+      font-weight: 700;
+      color: #2563eb;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+    .warning-box {
+      background: #fee2e2;
+      border-left: 4px solid #ef4444;
+      padding: 8px 12px;
+      margin: 8px 0;
+      font-size: 12px;
+      color: #991b1b;
+    }
+  </Style>
+
+  <!-- ========================================================== -->
+  <!-- KROK 1: ANOTACE TITULKU (Sekce I)                         -->
+  <!-- ========================================================== -->
+
+  <View className="step-header">
+    <Header value="KROK 1 — Anotace titulku (Sekce I)"/>
+  </View>
+
+  <View className="header-display">
+    <Text name="header" value="$header"/>
+  </View>
+
+  <!-- · A1: Scope of missing context · -->
+  <View className="field-label">
+    <Header value="A1 — Rozsah chybějícího kontextu"/>
+  </View>
+  <View className="field-help">
+    <Text name="A1_help" value="NONE = vše podstatné je v titulku. LOW = chybí drobnost. HIGH = chybí klíčový prvek (baseline, scope, čas)."/>
+  </View>
+  <Choices name="A1-scope_of_missing_context" toName="header" required="true" choice="single">
+    <Choice value="NONE"/>
+    <Choice value="LOW"/>
+    <Choice value="HIGH"/>
+  </Choices>
+
+  <!-- · A2: Type of missing context (jen pokud A1 != NONE) · -->
+  <View visibleWhen="choice-selected" whenTagName="A1-scope_of_missing_context" whenChoiceValue="LOW,HIGH">
+    <View className="field-label">
+      <Header value="A2 — Typ chybějícího kontextu (multi-label)"/>
+    </View>
+    <View className="field-help">
+      <Text name="A2_help" value="Vyber všechny typy, které chybí. Multi-label."/>
+    </View>
+    <Choices name="A2-scope_of_missing_context_type" toName="header" choice="multiple">
+      <Choice value="MOTIVATION"/>
+      <Choice value="CAUSALITY"/>
+      <Choice value="SCOPE"/>
+      <Choice value="TIMEFRAME"/>
+      <Choice value="PROCESS_STAGE"/>
+      <Choice value="UNCERTAINTY_LEVEL"/>
+      <Choice value="STATISTICAL_BASELINE"/>
+      <Choice value="RELEVANCE_OF_ATTRIBUTE"/>
+      <Choice value="NEGATIVE_SPACE"/>
+    </Choices>
+  </View>
+
+  <!-- · A3: Quantification · -->
+  <View className="field-label">
+    <Header value="A3 — Přítomnost kvantifikace"/>
+  </View>
+  <View className="field-help">
+    <Text name="A3_help" value="FULL = konkrétní číslo s jednotkou. PARTIAL = vágní kvantifikace (tisíce, rekordní). NONE = bez čísla."/>
+  </View>
+  <Choices name="A3-quantification_present" toName="header" required="true" choice="single">
+    <Choice value="FULL"/>
+    <Choice value="PARTIAL"/>
+    <Choice value="NONE"/>
+  </Choices>
+
+  <!-- · B1: Framing present · -->
+  <View className="field-label">
+    <Header value="B1 — Přítomnost framingu"/>
+  </View>
+  <View className="field-help">
+    <Text name="B1_help" value="YES = titulek používá framingový akt (CLICKBAIT, presupozice, dramatizace, dehumanizace, apokalyptický rámec atd.). NO = bez framingu."/>
+  </View>
+  <Choices name="B1-framing_present" toName="header" required="true" choice="single">
+    <Choice value="YES"/>
+    <Choice value="NO"/>
+  </Choices>
+
+  <!-- · B2: Framing type (jen pokud B1 = YES) · -->
+  <View visibleWhen="choice-selected" whenTagName="B1-framing_present" whenChoiceValue="YES">
+    <View className="field-label">
+      <Header value="B2 — Typ framingu (multi-label)"/>
+    </View>
+    <View className="field-help">
+      <Text name="B2_help" value="DEHUMANIZATION = zvířecí, parazitické, sluhovské metafory aplikované na instituce/aktéry. APOCALYPTIC = sériová eskalace negativních predikcí v telegrafickém stylu."/>
+    </View>
+    <Choices name="B2-framing_type" toName="header" choice="multiple">
+      <Choice value="IDENTITY_HIGHLIGHTING"/>
+      <Choice value="EMOTIONAL_LANGUAGE"/>
+      <Choice value="ABSOLUTE_CLAIMS"/>
+      <Choice value="CAUSAL_SHORTCUT"/>
+      <Choice value="SELECTIVE_FACTS"/>
+      <Choice value="CLICKBAIT_STYLE"/>
+      <Choice value="MULTIPLE_MEANING"/>
+      <Choice value="ATTRIBUTED_CLAIM"/>
+      <Choice value="PRESUPPOSITION"/>
+      <Choice value="DEHUMANIZATION"/>
+      <Choice value="APOCALYPTIC"/>
+    </Choices>
+  </View>
+
+  <!-- · B3: Attribution clarity · -->
+  <View className="field-label">
+    <Header value="B3 — Jasnost atribuce"/>
+  </View>
+  <View className="field-help">
+    <Text name="B3_help" value="CLEAR = jasná atribuce konkrétnímu mluvčímu. VAGUE = vágní (expert, odborník). MISSING = chybí. SPLIT = atribuce v 2. větě nepokrývá silný claim v 1. větě (vzor: 'Silný claim. X o tématu Y')."/>
+    </View>
+  <Choices name="B3-attribution_clarity" toName="header" required="true" choice="single">
+    <Choice value="CLEAR"/>
+    <Choice value="VAGUE"/>
+    <Choice value="MISSING"/>
+    <Choice value="SPLIT"/>
+  </Choices>
+
+  <!-- · C1: Misinterpretation risk · -->
+  <View className="field-label">
+    <Header value="C1 — Riziko chybné interpretace průměrným čtenářem"/>
+  </View>
+  <View className="field-help">
+    <Text name="C1_help" value="LOW = věcný titulek, malé riziko. MEDIUM = chybějící kontext/framing může navést jiným směrem. HIGH = pravděpodobně si čtenář odnese obraz v zásadním rozporu s realitou."/>
+  </View>
+  <Choices name="C1-misinterpretation_risk" toName="header" required="true" choice="single">
+    <Choice value="LOW"/>
+    <Choice value="MEDIUM"/>
+    <Choice value="HIGH"/>
+  </Choices>
+
+  <!-- · C2: Likely misinterpretation (NEPOVINNÉ, jen pokud C1 >= MEDIUM) · -->
+  <View visibleWhen="choice-selected" whenTagName="C1-misinterpretation_risk" whenChoiceValue="MEDIUM,HIGH">
+    <View className="field-label">
+      <Header value="C2 — Pravděpodobná chybná interpretace (NEPOVINNÉ)"/>
+    </View>
+    <View className="field-help">
+      <Text name="C2_help" value="NEPOVINNÉ pole. Pokud chceš, doplň jednu větu: 'Čtenář si pravděpodobně odnese, že …'. Můžeš nechat prázdné."/>
+    </View>
+    <TextArea name="C2-likely_misinterpretation" toName="header"
+              placeholder="Volitelné. Stačí jedna věta."
+              maxSubmissions="1" rows="1"/>
+  </View>
+
+  <!-- · C3: Conspiracy pattern · -->
+  <View className="field-label">
+    <Header value="C3 — Konspirační vzor"/>
+  </View>
+  <View className="field-help">
+    <Text name="C3_help" value="NONE = žádný. SYMBOL = afirmativní zmínka konspiračního symbolu (Soros, Davos, Great Reset, Náhrada národů, Deep State, ...). NARRATIVE = reprodukce konspiračního příběhu (inverze rolí, plánovaná krize, manipulované volby). FALSE_ATTRIBUTION = straw-man citace, kterou odpůrci nikdy nevyřkli."/>
+  </View>
+  <Choices name="C3-conspiracy_pattern" toName="header" required="true" choice="single">
+    <Choice value="NONE"/>
+    <Choice value="SYMBOL"/>
+    <Choice value="NARRATIVE"/>
+    <Choice value="FALSE_ATTRIBUTION"/>
+  </Choices>
+
+  <!-- · D1: Sensitive domain · -->
+  <View className="field-label">
+    <Header value="D1 — Citlivá doména (modulátor přísnosti)"/>
+  </View>
+  <View className="field-help">
+    <Text name="D1_help" value="Doména sama o sobě neurčuje label, ale modifikuje přísnost vyhodnocení ostatních polí. V citlivé doméně klesá hranice POTENTIALLY/MISLEADING."/>
+  </View>
+  <Choices name="D1-sensitive_domain" toName="header" required="true" choice="single">
+    <Choice value="NONE"/>
+    <Choice value="HEALTH"/>
+    <Choice value="SECURITY"/>
+    <Choice value="FINANCE"/>
+    <Choice value="IDENTITY"/>
+    <Choice value="POLITICS"/>
+    <Choice value="OTHER"/>
+  </Choices>
+
+  <!-- · E1: Final label (Sekce I) · -->
+  <View className="field-label">
+    <Header value="E1 — Finální label podle titulku (model_final)"/>
+  </View>
+  <View className="warning-box">
+    <Text name="E1_warning" value="POZOR: Toto pole se vyplňuje až po vyhodnocení A1-D1. Po vyplnění se odemkne KROK 2 (metadata)."/>
+  </View>
+  <Choices name="E1-misleading_header_model_final" toName="header" required="true" choice="single">
+    <Choice value="NOT_MISLEADING"/>
+    <Choice value="POTENTIALLY_MISLEADING"/>
+    <Choice value="MISLEADING"/>
+  </Choices>
+
+  <!-- ========================================================== -->
+  <!-- KROK 2: METADATA                                           -->
+  <!-- Viditelné AŽ když je E1 vyplněné                           -->
+  <!-- ========================================================== -->
+
+  <View visibleWhen="choice-selected" whenTagName="E1-misleading_header_model_final"
+        whenChoiceValue="NOT_MISLEADING,POTENTIALLY_MISLEADING,MISLEADING">
+
+    <View className="step-header step-meta">
+      <Header value="KROK 2 — Metadata"/>
+    </View>
+
+    <!-- · M1: Language · -->
+    <View className="field-label">
+      <Header value="M1 — Jazyk titulku"/>
+    </View>
+    <Choices name="M1-language" toName="header" required="true" choice="single">
+      <Choice value="CS"/>
+      <Choice value="EN"/>
+      <Choice value="SK"/>
+    </Choices>
+
+    <!-- · M2: Topic domain · -->
+    <View className="field-label">
+      <Header value="M2 — Tematická doména"/>
+    </View>
+    <View className="field-help">
+      <Text name="M2_help" value="Nezávislé od D1. M2 říká, O ČEM titulek je (kategorizace), D1 říká, jestli je téma CITLIVÉ (modulátor)."/>
+    </View>
+    <Choices name="M2-topic_domain" toName="header" required="true" choice="single">
+      <Choice value="POLITICS"/>
+      <Choice value="CRIME"/>
+      <Choice value="HEALTH"/>
+      <Choice value="ECONOMY"/>
+      <Choice value="SOCIETY"/>
+      <Choice value="SPORT"/>
+      <Choice value="CULTURE"/>
+      <Choice value="TECH"/>
+      <Choice value="OTHER"/>
+    </Choices>
+
+    <!-- · M3: Annotation confidence · -->
+    <View className="field-label">
+      <Header value="M3 — Anotační jistota"/>
+    </View>
+    <View className="field-help">
+      <Text name="M3_help" value="HIGH = vše jednoznačné. MEDIUM = jedno-dvě pole na pomezí, ale celkový label jasný. LOW = hraniční případ, různí anotátoři by mohli rozhodnout jinak."/>
+    </View>
+    <Choices name="M3-annotation_confidence" toName="header" required="true" choice="single">
+      <Choice value="HIGH"/>
+      <Choice value="MEDIUM"/>
+      <Choice value="LOW"/>
+    </Choices>
+  </View>
+
+</View>

@@ -1,0 +1,63 @@
+# =====================================================================
+# Závislosti pro projekt BP — Detekce zavádějícnosti CS titulků
+# =====================================================================
+#
+# Použití:
+#   python3 -m venv venv
+#   source venv/bin/activate
+#   pip install -r requirements.txt
+#
+# Soubor obsahuje závislosti pro:
+#   - Lokální skripty (M1) — dataset split, IAA, evaluace
+#   - Colab notebooky    — fine-tuning, inference (na Colabu se 
+#                          unsloth instaluje samostatně)
+#
+# =====================================================================
+
+# Core data manipulation
+pandas>=2.0,<3.0
+numpy>=1.24,<3.0
+
+# Machine learning metrics & utils
+scikit-learn>=1.3,<2.0
+
+# Visualization
+matplotlib>=3.7,<4.0
+seaborn>=0.13,<1.0
+
+# JSON Lines parsing (built-in json stačí, pro pohodlí)
+# jsonlines>=4.0  # volitelné
+
+# OpenAI API (pro GPT-5.5 baseline)
+openai>=1.50
+
+# HuggingFace ekosystém (pro inference z lokálních adapterů)
+transformers>=4.45
+peft>=0.13
+accelerate>=0.30
+bitsandbytes>=0.43; sys_platform == 'linux'
+# bitsandbytes nefunguje na M1 — je tam podmínka pro Linux only
+# Na M1 inference adapter use plain FP16 přes transformers + peft
+
+# HuggingFace Hub (pro stahování modelů, případně publikaci datasetu)
+huggingface-hub>=0.24
+
+# Datasets (pro načítání train/val JSONL)
+datasets>=2.20
+
+# Tokenizers
+tokenizers>=0.20
+
+# Utility
+tqdm>=4.66
+python-dotenv>=1.0  # volitelné — pro načítání API key z .env
+
+# =====================================================================
+# Závislosti potřebné JEN v Colabu (instalují se v notebooku):
+# =====================================================================
+# unsloth — pro QLoRA fine-tuning na L4 GPU
+# trl<0.9.0 — TRL trainer (nepoužíváme SFTTrainer, ale instaluje se)
+# wandb — pro logging tréninku
+#
+# Tyto se instalují přímo v notebooku, ne přes requirements.txt,
+# protože vyžadují specifické verze pro Colab GPU prostředí.

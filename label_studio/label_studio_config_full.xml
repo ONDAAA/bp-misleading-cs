@@ -1,0 +1,196 @@
+<View>
+
+  <View style="background:#f8f9fa; padding:12px; border-radius:8px; margin-bottom:16px;">
+    <Header value="Analyzovaný text"/>
+    <Text name="text" value="$text"/>
+    <View style="margin-top:8px; font-size:12px; color:#666;">
+      <Text name="record_id"  value="ID: $id"/>
+      <Text name="record_src" value="Zdroj: $source"/>
+    </View>
+  </View>
+
+  <View style="border:1px solid #dee2e6; border-radius:8px; padding:12px; margin-bottom:12px;">
+    <Header value="Blok A — Faktická správnost"/>
+
+    <Header value="A1 — Faktická správnost"/>
+    <Choices name="A1" toName="text" choice="single" required="true" showInline="true">
+      <Choice value="TRUE"/>
+      <Choice value="FALSE"/>
+      <Choice value="UNVERIFIABLE"/>
+    </Choices>
+
+    <Header value="A2 — Stupeň faktické chyby (pouze pokud A1 = FALSE)"/>
+    <Choices name="A2" toName="text" choice="single"
+             visibleWhen="choice-selected"
+             whenTagName="A1"
+             whenChoiceValue="FALSE">
+      <Choice value="MINOR"/>
+      <Choice value="MAJOR"/>
+    </Choices>
+
+    <Header value="A3 — Temporální platnost"/>
+    <Choices name="A3" toName="text" choice="single" required="true" showInline="true">
+      <Choice value="CURRENT"/>
+      <Choice value="OUTDATED"/>
+      <Choice value="UNCLEAR"/>
+    </Choices>
+  </View>
+
+  <View style="border:1px solid #dee2e6; border-radius:8px; padding:12px; margin-bottom:12px;">
+    <Header value="Blok B — Kontext a zavádějícost"/>
+
+    <Header value="B1 — Míra zavádějícosti"/>
+    <Choices name="B1" toName="text" choice="single" required="true">
+      <Choice value="NOT_MISLEADING"/>
+      <Choice value="PARTIALLY_MISLEADING"/>
+      <Choice value="FULLY_MISLEADING"/>
+    </Choices>
+
+    <Header value="B2 — Závažnost chybějícího kontextu"/>
+    <Choices name="B2" toName="text" choice="single" required="true" showInline="true">
+      <Choice value="NONE"/>
+      <Choice value="LOW"/>
+      <Choice value="HIGH"/>
+    </Choices>
+
+    <Header value="B3 — Dostupnost chybějícího kontextu"/>
+    <Choices name="B3" toName="text" choice="single" required="true" showInline="true">
+      <Choice value="IN_SOURCE"/>
+      <Choice value="EXTERNAL_SOURCES"/>
+      <Choice value="NOT_AVAILABLE"/>
+    </Choices>
+
+    <Header value="B4 — Typ chybějícího kontextu (lze vybrat více)"/>
+    <Choices name="B4" toName="text" choice="multiple">
+      <Choice value="MOTIVATION"/>
+      <Choice value="CAUSALITY"/>
+      <Choice value="SCOPE"/>
+      <Choice value="TIMEFRAME"/>
+      <Choice value="PROCESS_STAGE"/>
+      <Choice value="UNCERTAINTY_LEVEL"/>
+      <Choice value="STATISTICAL_BASELINE"/>
+      <Choice value="RELEVANCE_OF_ATTRIBUTE"/>
+    </Choices>
+  </View>
+
+  <View style="border:1px solid #dee2e6; border-radius:8px; padding:12px; margin-bottom:12px;">
+    <Header value="Blok C — Jazykové a rámovací prvky"/>
+
+    <Header value="C1 — Přítomnost framingového zkreslení"/>
+    <Choices name="C1" toName="text" choice="single" required="true" showInline="true">
+      <Choice value="YES"/>
+      <Choice value="NO"/>
+    </Choices>
+
+    <Header value="C2 — Typ framingu (pouze pokud C1 = YES, lze vybrat více)"/>
+    <Choices name="C2" toName="text" choice="multiple"
+             visibleWhen="choice-selected"
+             whenTagName="C1"
+             whenChoiceValue="YES">
+      <Choice value="IDENTITY_HIGHLIGHTING"/>
+      <Choice value="EMOTIONAL_LANGUAGE"/>
+      <Choice value="ABSOLUTE_CLAIMS"/>
+      <Choice value="CAUSAL_SHORTCUT"/>
+      <Choice value="SELECTIVE_FACTS"/>
+      <Choice value="CLICKBAIT_STYLE"/>
+    </Choices>
+
+    <Header value="C3 — Jasnost atribuce"/>
+    <Choices name="C3" toName="text" choice="single" required="true" showInline="true">
+      <Choice value="CLEAR"/>
+      <Choice value="VAGUE"/>
+      <Choice value="MISSING"/>
+    </Choices>
+  </View>
+
+  <View style="border:1px solid #dee2e6; border-radius:8px; padding:12px; margin-bottom:12px;">
+    <Header value="Blok D — Interpretační riziko"/>
+
+    <Header value="D1 — Míra rizika chybné interpretace"/>
+    <Choices name="D1" toName="text" choice="single" required="true" showInline="true">
+      <Choice value="LOW"/>
+      <Choice value="MEDIUM"/>
+      <Choice value="HIGH"/>
+    </Choices>
+
+    <Header value="D2 — Pravděpodobná chybná interpretace čtenáře"/>
+    <TextArea name="D2" toName="text" required="true"
+              placeholder="Krátce popište jak průměrný čtenář může sdělení nesprávně interpretovat (1–2 věty)..."
+              rows="2"
+              maxSubmissions="1"/>
+  </View>
+
+  <View style="border:1px solid #dee2e6; border-radius:8px; padding:12px; margin-bottom:12px;">
+    <Header value="Blok E — Etika a citlivost"/>
+
+    <Header value="E1 — Citlivé téma"/>
+    <Choices name="E1" toName="text" choice="single" required="true" showInline="true">
+      <Choice value="YES"/>
+      <Choice value="NO"/>
+    </Choices>
+
+    <Header value="E2 — Typ citlivého tématu (pouze pokud E1 = YES)"/>
+    <Choices name="E2" toName="text" choice="single"
+             visibleWhen="choice-selected"
+             whenTagName="E1"
+             whenChoiceValue="YES">
+      <Choice value="RELIGION"/>
+      <Choice value="ETHNICITY"/>
+      <Choice value="POLITICS"/>
+      <Choice value="HEALTH"/>
+      <Choice value="CRIME"/>
+      <Choice value="OTHER"/>
+    </Choices>
+
+    <Header value="E3 — Riziko stigmatizace"/>
+    <Choices name="E3" toName="text" choice="single" required="true" showInline="true">
+      <Choice value="LOW"/>
+      <Choice value="MEDIUM"/>
+      <Choice value="HIGH"/>
+    </Choices>
+  </View>
+
+  <View style="border:1px solid #ced4da; border-radius:8px; padding:12px; background:#f8f9fa;">
+    <Header value="Metadata (nejsou součástí trénovacích dat)"/>
+
+    <Header value="M2 — Typ zdroje"/>
+    <Choices name="M2" toName="text" choice="single" required="true" showInline="true">
+      <Choice value="HEADLINE"/>
+      <Choice value="PEREX"/>
+      <Choice value="SOCIAL_POST"/>
+      <Choice value="OTHER"/>
+    </Choices>
+
+    <Header value="M3 — Tematická doména"/>
+    <Choices name="M3" toName="text" choice="single" required="true" showInline="true">
+      <Choice value="POLITICS"/>
+      <Choice value="CRIME"/>
+      <Choice value="HEALTH"/>
+      <Choice value="ECONOMY"/>
+      <Choice value="SOCIETY"/>
+      <Choice value="SPORT"/>
+      <Choice value="SCIENCE"/>
+      <Choice value="OTHER"/>
+    </Choices>
+
+    <Header value="M4 — Anotační jistota"/>
+    <Choices name="M4" toName="text" choice="single" required="true" showInline="true">
+      <Choice value="LOW"/>
+      <Choice value="MEDIUM"/>
+      <Choice value="HIGH"/>
+    </Choices>
+
+    <Header value="M5 — Vyžadováno dohledání externího zdroje"/>
+    <Choices name="M5" toName="text" choice="single" required="true" showInline="true">
+      <Choice value="YES"/>
+      <Choice value="NO"/>
+    </Choices>
+
+    <Header value="M6 — Poznámky (volitelné)"/>
+    <TextArea name="M6" toName="text"
+              placeholder="Poznámky k hraničním případům, použité zdroje pro ověření..."
+              rows="2"
+              maxSubmissions="1"/>
+  </View>
+
+</View>
