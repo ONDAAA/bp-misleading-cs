@@ -203,7 +203,8 @@ Výstupem jsou:
 
 ## Důležité poznámky
 
-- Velké trénovací artefakty jako `.safetensors` váhy a checkpointy nejsou ve veřejném repozitáři verzované kvůli GitHub file-size limitům.
+- Finální adapter weights `models/llama_base_qlora_v1/adapter_model.safetensors` a `models/llama_instruct_qlora_v1/adapter_model.safetensors` jsou publikované přes Git LFS.
+- Velké checkpointy a průběžné trénovací artefakty ve veřejném repozitáři verzované nejsou.
 - V repozitáři zůstávají konfigurační soubory adapterů, tokenizerů, notebooky, datasety a evaluační výstupy.
 - Soubor `data/raw/merged/merged.csv` má přibližně 56 MB, takže GitHub u něj zobrazuje upozornění na větší velikost, ale repozitář jej stále přijímá.
 - Notebooky pro GPT inferenci očekávají `OPENAI_API_KEY` v Colab Secrets.
